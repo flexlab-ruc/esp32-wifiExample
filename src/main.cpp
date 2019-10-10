@@ -4,11 +4,22 @@
 
 #include "AsyncUDP.h"
 
+#include <string.h>
+
 const char * ssid = "flexlab2";
 const char * password = "flexiwifi";
 const int udpPort = 7001;
 
 AsyncUDP udp;
+WiFiUDP udpSender;
+
+void sendMessage(String ip, int port, String message)
+{
+   udpSender.beginPacket(ip.c_str(), port);
+   udpSender.printf(message.c_str());
+   udpSender.endPacket(); 
+    
+}
 
 void setup()
 {
@@ -42,6 +53,9 @@ void setup()
             Serial.println();
             //reply to the client
             packet.printf("Got %u bytes of data", packet.length());
+
+            //send reply
+            sendMessage(packet.remoteIP().toString(), udpPort, "reply from esp32");
         });
     }
 }
@@ -57,3 +71,4 @@ void loop()
     Serial.print(" on port: ");
     Serial.println(udpPort);
 } 
+
