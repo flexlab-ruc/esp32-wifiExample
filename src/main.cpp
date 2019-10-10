@@ -17,8 +17,7 @@ void sendMessage(String ip, int port, String message)
 {
    udpSender.beginPacket(ip.c_str(), port);
    udpSender.printf(message.c_str());
-   udpSender.endPacket(); 
-    
+   udpSender.endPacket();    
 }
 
 void setup()
@@ -71,4 +70,3 @@ void loop()
     Serial.print(" on port: ");
     Serial.println(udpPort);
 } 
-
