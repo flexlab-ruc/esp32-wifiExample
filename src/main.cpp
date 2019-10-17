@@ -53,6 +53,12 @@ void setup()
             //reply to the client
             packet.printf("Got %u bytes of data", packet.length());
 
+            // make a string from the data
+            String s((char*)packet.data());
+            //packet.print(s.c_str());
+
+            if (s.equals("who are you")) packet.print("I am your ESP32 :-)");
+
             //send reply
             sendMessage(packet.remoteIP().toString(), udpPort, "reply from esp32");
         });
